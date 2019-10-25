@@ -1,17 +1,29 @@
 import React from "react";
 import ReactDOM from "react-dom";
-import "./index.css";
 import * as serviceWorker from "./serviceWorker";
 import { Provider } from "react-redux";
-import App from "./App";
+import { BrowserRouter, Switch, Route } from 'react-router-dom'
+
 import configStore from "./reducers/configStore";
+import ErrorsBoundary from './error';
+
+import MainPage from './pages/main'
+import Login from './pages/login'
 
 const store = configStore();
 
 ReactDOM.render(
-  <Provider store={store}>
-    <App />
-  </Provider>,
+  <ErrorsBoundary>
+    <Provider store={store}>
+      <BrowserRouter>
+        <Switch>
+          <Route path='/login' component={Login} />
+          <Route path='/' component={MainPage} />
+        </Switch>
+      </BrowserRouter>
+    </Provider>
+  </ErrorsBoundary>,
+
   document.getElementById("root")
 );
 
